@@ -316,100 +316,8 @@ visualize({
 		</div><!-- /container -->
 	</div><!-- /w -->
 	<!-- /LAB 2 -->
-	
+
 	<!-- ========== LAB 3 ========== -->
-	<section id="lab3" name="lab4"></section>
-	<div class="lab">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 col-lg-offset-2">
-				<h3><bold>LAB 3</bold> <br><br></h3>
-				<p>In this lab we'll add a Dashboard, and then create combobox to let user select from available Dashboards.<br>
-				The dashboards list is extracted directly from JasperReports Server</p>
-				
-				<br>
-				<select id="dashboardSelector"></select>
-				<br>
-				Container Div Id: &nbsp;&nbsp;&nbsp;<i>dashboardSelector</i>
-				<br>
-				<br>
-				<div id="div_dashboard_1" align="center" class="dashboardContainerViz" >
-					<object type="image/svg+xml" data="assets/img/drawsvg.svg" width="100%" height="100%">
-						<param name="Title" value="DASHBOARD 1" />
-						<param name="DivId" value="Div Id: div_dashboard_1" />
-					 </object>	
-				</div>
-				<br><br>
-				<h4>Task 1 - Add the Dashboard</h4>	
-				<p>
-				Let's see how to embed a dashboard. It's really not much different from a Report...<br>
-				Check out the code below:
-				
-					<pre class="brush: js;">
-					v(&quot;#div_dashboard_1&quot;).dashboard({
-						resource: &quot;/public/Samples/Dashboards/4._New_Dashboard&quot;,
-						error: function (err) {
-							alert(err.message);
-						}
-					});
-					</pre>
-				</p>
-				<br>
-				<h4>Task 2 - Get available Dashboards from JRS</h4>	
-				<p>
-				The code below request to JRS the list of resources of type Dashboard in a specific folder.<br>
-				Please note that onSuccess we call a function that is not yet defined, you'll find it in the next Task.<br>
-				So before reloading the page <b>complete also next task</b>
-				
-					<pre class="brush: js;">
-					v.resourcesSearch({
-						folderUri:&quot;/public/Samples/Dashboards&quot;,
-						recursive:false,
-						types:[&quot;dashboard&quot;],
-						success: listRepository,
-						error: function (err) {
-							alert(err.message);
-						}
-					});
-					</pre>
-				</p>
-				<br>
-			
-				<h4>Task 3 - Fill the ComboBox and add Load Dashboard on change</h4>	
-				<p>
-				In this Last Task we create a function to analyze the json result retrieved from previous task.<br>
-				With the result we'll populate the combobox already in this page.
-					<pre class="brush: js;">
-					// Repo Lister
-					function listRepository(results) {
-						var dSelector = $(&quot;#dashboardSelector&quot;);
-						dSelector.empty(); // remove old options
-						$.each(results, function() {
-							dSelector.append($(&quot;&lt;option&gt;&lt;/option&gt;&quot;)
-							 .attr(&quot;value&quot;, this.uri).text(this.label));
-						});
-
-						//console.log($(&quot;#select&quot;));
-						dSelector.change(function() {
-							v.dashboard({
-									resource: this.value,
-									container: &quot;#div_dashboard_1&quot;,
-									error: function (err) {
-										alert(err.message);
-									}
-							});
-						});
-						// To select the option to display as default via index
-						$(&quot;#dashboardSelector option:eq(5)&quot;).prop(&quot;selected&quot;, true).change(); 
-					}
-					</pre>
-				</p>
-				</div>
-			</div>
-		</div><!-- /container -->
-	</div><!-- /LAB 3 -->
-
-	<!-- ========== LAB 4 ========== -->
 	<section id="lab3" name="lab3"></section>
 	<div class="lab alt">
 		<div class="container">
@@ -512,9 +420,102 @@ visualize({
 				</div>
 			</div>
 		</div><!-- /container -->
+	</div><!-- /LAB 3 -->
+
+	<!-- ========== LAB 4 ========== -->
+	<section id="lab3" name="lab4"></section>
+	<div class="lab">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+				<h3><bold>LAB 3</bold> <br><br></h3>
+				<p>In this lab we'll add a Dashboard, and then create combobox to let user select from available Dashboards.<br>
+				The dashboards list is extracted directly from JasperReports Server</p>
+				
+				<br>
+				<select id="dashboardSelector"></select>
+				<br>
+				Container Div Id: &nbsp;&nbsp;&nbsp;<i>dashboardSelector</i>
+				<br>
+				<br>
+				<div id="div_dashboard_1" align="center" class="dashboardContainerViz" >
+					<object type="image/svg+xml" data="assets/img/drawsvg.svg" width="100%" height="100%">
+						<param name="Title" value="DASHBOARD 1" />
+						<param name="DivId" value="Div Id: div_dashboard_1" />
+					 </object>	
+				</div>
+				<br><br>
+				<h4>Task 1 - Add the Dashboard</h4>	
+				<p>
+				Let's see how to embed a dashboard. It's really not much different from a Report...<br>
+				Check out the code below:
+				
+					<pre class="brush: js;">
+					v(&quot;#div_dashboard_1&quot;).dashboard({
+						resource: &quot;/public/Samples/Dashboards/4._New_Dashboard&quot;,
+						error: function (err) {
+							alert(err.message);
+						}
+					});
+					</pre>
+				</p>
+				<br>
+				<h4>Task 2 - Get available Dashboards from JRS</h4>	
+				<p>
+				The code below request to JRS the list of resources of type Dashboard in a specific folder.<br>
+				Please note that onSuccess we call a function that is not yet defined, you'll find it in the next Task.<br>
+				So before reloading the page <b>complete also next task</b>
+				
+					<pre class="brush: js;">
+					v.resourcesSearch({
+						folderUri:&quot;/public/Samples/Dashboards&quot;,
+						recursive:false,
+						types:[&quot;dashboard&quot;],
+						success: listRepository,
+						error: function (err) {
+							alert(err.message);
+						}
+					});
+					</pre>
+				</p>
+				<br>
+			
+				<h4>Task 3 - Fill the ComboBox and add Load Dashboard on change</h4>	
+				<p>
+				In this Last Task we create a function to analyze the json result retrieved from previous task.<br>
+				With the result we'll populate the combobox already in this page.
+					<pre class="brush: js;">
+					// Repo Lister
+					function listRepository(results) {
+						var dSelector = $(&quot;#dashboardSelector&quot;);
+						dSelector.empty(); // remove old options
+						$.each(results, function() {
+							dSelector.append($(&quot;&lt;option&gt;&lt;/option&gt;&quot;)
+							 .attr(&quot;value&quot;, this.uri).text(this.label));
+						});
+
+						//console.log($(&quot;#select&quot;));
+						dSelector.change(function() {
+							v.dashboard({
+									resource: this.value,
+									container: &quot;#div_dashboard_1&quot;,
+									error: function (err) {
+										alert(err.message);
+									}
+							});
+						});
+						// To select the option to display as default via index
+						$(&quot;#dashboardSelector option:eq(5)&quot;).prop(&quot;selected&quot;, true).change(); 
+					}
+					</pre>
+				</p>
+				</div>
+			</div>
+		</div><!-- /container -->
 	</div><!-- /LAB 4 -->
+
 	
-	<!-- ========== BOSUN LABS ========== -->
+	<!-- ========== BONUS LABS ========== -->
 	<section id="labBonus" name="labBonus"></section>
 	<div class="lab alt">
 		<div class="container">
