@@ -33,7 +33,7 @@
 	
 	<!-- Visualize.js -->	
 	<!-- LAB_1_1 --> 
-	<!--<script src="http://localhost:8080/jasperserver-pro/client/visualize.js?_opt=false"></script>-->
+	<script src="http://localhost:8080/jasperserver-pro/client/visualize.js?_opt=false"></script>
 	<script src="assets/js/visualizejs_main.js"></script>	
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -56,6 +56,7 @@
 			<a href="#lab2" class="smoothScroll">Lab 2</a>
 			<a href="#lab3" class="smoothScroll">Lab 3</a>
 			<a href="#lab4" class="smoothScroll">Lab 4</a>
+			<a href="#lab5" class="smoothScroll">Lab 5</a>
 			<a href="#labBonus" class="smoothScroll">Bonus Labs</a>
 			<a href="#externalReferences" class="smoothScroll">External References</a>
 			<a href="#about" class="smoothScroll">About</a>
@@ -423,12 +424,82 @@ visualize({
 	</div><!-- /LAB 3 -->
 
 	<!-- ========== LAB 4 ========== -->
-	<section id="lab3" name="lab4"></section>
+	<section id="lab4" name="lab4"></section>
 	<div class="lab">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 col-lg-offset-2">
-				<h3><bold>LAB 3</bold> <br><br></h3>
+				<h3><bold>LAB 4</bold> <br><br></h3>
+				<p>In this lab we'll add a View and test CSS inheritance</p>
+				<br>
+				<div id="div_view_1" align="center" class="viewContainerViz" >
+					<object type="image/svg+xml" data="assets/img/drawsvg.svg" width="100%" height="100%">
+						<param name="Title" value="VIEW 1" />
+						<param name="DivId" value="Div Id: div_view_1" />
+					 </object>	
+				</div>
+				<br><br>
+				<h4>Task 1 - Add the View</h4>	
+				<p>
+				Let's see how to embed an AdHoc View. It's really not much different from a Report...<br>
+				Check out the code below:
+				
+					<pre class="brush: js;">
+					v(&quot;#div_view_1&quot;).adhocView({
+						resource: &quot;/public/Samples/Ad_Hoc_Views/04__Product_Results_by_Store_Type&quot;,
+						error: function (err) {
+							alert(err.message);
+						}
+					});
+					</pre>
+				</p>
+				<br>
+				<h4>Task 2 - Infinit scrolling</h4>	
+				<p>
+				Scroll the table down, notice how element are loaded as you scroll while the header remain.
+				</p>
+				<br>
+			
+				<h4>Task 3 - Apply CSS</h4>	
+				<p>
+				We want to unify the font style and change background-color for each section 
+					<pre class="brush: css;">
+					// Repo Lister
+					function listRepository(results) {
+						var dSelector = $(&quot;#dashboardSelector&quot;);
+						dSelector.empty(); // remove old options
+						$.each(results, function() {
+							dSelector.append($(&quot;&lt;option&gt;&lt;/option&gt;&quot;)
+							 .attr(&quot;value&quot;, this.uri).text(this.label));
+						});
+
+						//console.log($(&quot;#select&quot;));
+						dSelector.change(function() {
+							v.dashboard({
+									resource: this.value,
+									container: &quot;#div_dashboard_1&quot;,
+									error: function (err) {
+										alert(err.message);
+									}
+							});
+						});
+						// To select the option to display as default via index
+						$(&quot;#dashboardSelector option:eq(5)&quot;).prop(&quot;selected&quot;, true).change(); 
+					}
+					</pre>
+				</p>
+				</div>
+			</div>
+		</div><!-- /container -->
+	</div><!-- /LAB 4 -->
+
+	<!-- ========== LAB 5 ========== -->
+	<section id="lab5" name="lab5"></section>
+	<div class="lab alt">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+				<h3><bold>LAB 5</bold> <br><br></h3>
 				<p>In this lab we'll add a Dashboard, and then create combobox to let user select from available Dashboards.<br>
 				The dashboards list is extracted directly from JasperReports Server</p>
 				
@@ -512,12 +583,12 @@ visualize({
 				</div>
 			</div>
 		</div><!-- /container -->
-	</div><!-- /LAB 4 -->
+	</div><!-- /LAB 5 -->
 
 	
 	<!-- ========== BONUS LABS ========== -->
 	<section id="labBonus" name="labBonus"></section>
-	<div class="lab alt">
+	<div class="lab">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 col-lg-offset-2">
@@ -566,7 +637,7 @@ scrollToTop = typeof this.stateModel.get(&quot;scrollToTop&quot;) === &quot;unde
 				</div>
 			</div>
 		</div><!-- /container -->
-	</div><!-- /LAB 4 -->
+	</div><!-- /BONUS LAB -->
 	
 	
 	
