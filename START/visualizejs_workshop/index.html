@@ -241,16 +241,16 @@ visualize({
 				Now let's add the code to render the report in our webpage! <br>
 				Open the visualizejs_main.js and replace the alert with the code below:
 				
-<pre class="brush: js;">
-v(&quot;#div_chart_1&quot;).report({
-	resource: &quot;/public/Samples/Reports/02._Sales_Mix_by_Demographic_Report&quot;,
-	scrollToTop:false,
-	scale: &quot;height&quot;,
-	error: function (err) {
-		alert(err.message);
-	}
-});
-</pre>
+					<pre class="brush: js;">
+					v(&quot;#div_chart_1&quot;).report({
+						resource: &quot;/public/Samples/Reports/02._Sales_Mix_by_Demographic_Report&quot;,
+						scrollToTop:false,
+						scale: &quot;height&quot;,
+						error: function (err) {
+							alert(err.message);
+						}
+					});
+					</pre>
 				Refresh this page to see the chart! Was very is right?
 				</p>
 				</br>
@@ -260,29 +260,29 @@ v(&quot;#div_chart_1&quot;).report({
 				First let's add the pie chart, adding an alert onclick of slice.<br>
 				Add the following code immediately after the chart code added in previous task:
 				
-<pre class="brush: js;">
-v(&quot;#div_chart_2&quot;).report({
-	resource: &quot;/public/Samples/Reports/States&quot;,
-	scrollToTop:false,
-	scale: &quot;height&quot;,
-	linkOptions: {
-		events: {
-			&quot;mouseOut&quot;:function (ev, link) {},
-			&quot;mouseOver&quot;:function (ev, link) {},
-			&quot;select&quot;:function (ev, link) {},
-			&quot;click&quot;: function (ev, link) {				
-				 if (link.type == &quot;ReportExecution&quot;) {
-					 alert('You clicked on State: '+ link.parameters.store_state);
+					<pre class="brush: js;">
+					v(&quot;#div_chart_2&quot;).report({
+						resource: &quot;/public/Samples/Reports/States&quot;,
+						scrollToTop:false,
+						scale: &quot;height&quot;,
+						linkOptions: {
+							events: {
+								&quot;mouseOut&quot;:function (ev, link) {},
+								&quot;mouseOver&quot;:function (ev, link) {},
+								&quot;select&quot;:function (ev, link) {},
+								&quot;click&quot;: function (ev, link) {				
+									 if (link.type == &quot;ReportExecution&quot;) {
+										 alert('You clicked on State: '+ link.parameters.store_state);
 
-				}
-			}
-		}
-	},
-	error: function (err) {
-		alert(err.message);
-	}
-});
-</pre>			
+									}
+								}
+							}
+						},
+						error: function (err) {
+							alert(err.message);
+						}
+					});
+					</pre>			
 				</p>
 				<br>
 								<h4>Task 4 - Drilldown on Click</h4>	
@@ -290,22 +290,22 @@ v(&quot;#div_chart_2&quot;).report({
 				It's easier than you expect :)<br>
 				Add the following code replacing the alert added in previous step:
 				
-<pre class="brush: js;">
-/*...
-if (link.type == &quot;ReportExecution&quot;) {*/
-	v(&quot;#div_chart_3&quot;).report({
-		resource: &quot;/public/Samples/Reports/Cities&quot;,
-		scrollToTop:false,
-		scale: &quot;height&quot;,
-		params: {
-			state: [link.parameters.store_state]
-		},
-	});
-	//console.log(link.parameters.store_state);
-/*
-}
-*/
-</pre>		
+					<pre class="brush: js;">
+					/*...
+					if (link.type == &quot;ReportExecution&quot;) {*/
+						v(&quot;#div_chart_3&quot;).report({
+							resource: &quot;/public/Samples/Reports/Cities&quot;,
+							scrollToTop:false,
+							scale: &quot;height&quot;,
+							params: {
+								state: [link.parameters.store_state]
+							},
+						});
+						//console.log(link.parameters.store_state);
+					/*
+					}
+					*/
+					</pre>		
 				Refresh the page, anc click on the pie chart, you should see the new chart appearing.<br>
 				for each slice of pie a different parameter will be passed to the Cities Report<br>
 				that's why when you click on California, you'll see only city in state CA
@@ -315,8 +315,101 @@ if (link.type == &quot;ReportExecution&quot;) {*/
 			</div>
 		</div><!-- /container -->
 	</div><!-- /w -->
+	<!-- /LAB 2 -->
 	
-		<!-- ========== LAB 3 ========== -->
+	<!-- ========== LAB 3 ========== -->
+	<section id="lab3" name="lab4"></section>
+	<div class="lab">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+				<h3><bold>LAB 3</bold> <br><br></h3>
+				<p>In this lab we'll add a Dashboard, and then create combobox to let user select from available Dashboards.<br>
+				The dashboards list is extracted directly from JasperReports Server</p>
+				
+				<br>
+				<select id="dashboardSelector"></select>
+				<br>
+				Container Div Id: &nbsp;&nbsp;&nbsp;<i>dashboardSelector</i>
+				<br>
+				<br>
+				<div id="div_dashboard_1" align="center" class="dashboardContainerViz" >
+					<object type="image/svg+xml" data="assets/img/drawsvg.svg" width="100%" height="100%">
+						<param name="Title" value="DASHBOARD 1" />
+						<param name="DivId" value="Div Id: div_dashboard_1" />
+					 </object>	
+				</div>
+				<br><br>
+				<h4>Task 1 - Add the Dashboard</h4>	
+				<p>
+				Let's see how to embed a dashboard. It's really not much different from a Report...<br>
+				Check out the code below:
+				
+					<pre class="brush: js;">
+					v(&quot;#div_dashboard_1&quot;).dashboard({
+						resource: &quot;/public/Samples/Dashboards/4._New_Dashboard&quot;,
+						error: function (err) {
+							alert(err.message);
+						}
+					});
+					</pre>
+				</p>
+				<br>
+				<h4>Task 2 - Get available Dashboards from JRS</h4>	
+				<p>
+				The code below request to JRS the list of resources of type Dashboard in a specific folder.<br>
+				Please note that onSuccess we call a function that is not yet defined, you'll find it in the next Task.<br>
+				So before reloading the page <b>complete also next task</b>
+				
+					<pre class="brush: js;">
+					v.resourcesSearch({
+						folderUri:&quot;/public/Samples/Dashboards&quot;,
+						recursive:false,
+						types:[&quot;dashboard&quot;],
+						success: listRepository,
+						error: function (err) {
+							alert(err.message);
+						}
+					});
+					</pre>
+				</p>
+				<br>
+			
+				<h4>Task 3 - Fill the ComboBox and add Load Dashboard on change</h4>	
+				<p>
+				In this Last Task we create a function to analyze the json result retrieved from previous task.<br>
+				With the result we'll populate the combobox already in this page.
+					<pre class="brush: js;">
+					// Repo Lister
+					function listRepository(results) {
+						var dSelector = $(&quot;#dashboardSelector&quot;);
+						dSelector.empty(); // remove old options
+						$.each(results, function() {
+							dSelector.append($(&quot;&lt;option&gt;&lt;/option&gt;&quot;)
+							 .attr(&quot;value&quot;, this.uri).text(this.label));
+						});
+
+						//console.log($(&quot;#select&quot;));
+						dSelector.change(function() {
+							v.dashboard({
+									resource: this.value,
+									container: &quot;#div_dashboard_1&quot;,
+									error: function (err) {
+										alert(err.message);
+									}
+							});
+						});
+						// To select the option to display as default via index
+						$(&quot;#dashboardSelector option:eq(5)&quot;).prop(&quot;selected&quot;, true).change(); 
+					}
+					</pre>
+				</p>
+				</div>
+			</div>
+		</div><!-- /container -->
+	</div><!-- /LAB 3 -->
+
+	<!-- ========== LAB 4 ========== -->
 	<section id="lab3" name="lab3"></section>
 	<div class="lab alt">
 		<div class="container">
@@ -349,17 +442,17 @@ if (link.type == &quot;ReportExecution&quot;) {*/
 				we'll put the container div inside the report function. Using this syntax visualize will return us <br>
 				an object representing the report that we can then use for modifications.<br>
 				
-<pre class="brush: js;">
-var drinkFoodReport = v.report({
-	resource: &quot;/public/Samples/Reports/06g.ProfitDetailReport&quot;,
-	scrollToTop:false,
-	scale: &quot;height&quot;,
-	container:&quot;#div_report_1&quot;,
-	error: function (err) {
-		alert(err.message);
-	}
-});
-</pre>
+					<pre class="brush: js;">
+					var drinkFoodReport = v.report({
+						resource: &quot;/public/Samples/Reports/06g.ProfitDetailReport&quot;,
+						scrollToTop:false,
+						scale: &quot;height&quot;,
+						container:&quot;#div_report_1&quot;,
+						error: function (err) {
+							alert(err.message);
+						}
+					});
+					</pre>
 				</p>
 				<br>
 				<h4>Task 2 - Add the Action on image click (Food)</h4>	
@@ -367,19 +460,19 @@ var drinkFoodReport = v.report({
 				The images have specific ID : <b>foodImage</b>, <b>drinkImage</b>.<br>
 				Let's add the action on the food image:
 				
-<pre class="brush: js;">
-$(&quot;#foodImage&quot;).on(&quot;click&quot;, function() {
-	var params = {
-		ProductFamily: [&quot;Food&quot;]
-	};
-	
-	drinkFoodReport.params(params).run()
-		.fail(function(err) {
-			alert(err.message);
-		});
-	
-});
-</pre>
+					<pre class="brush: js;">
+					$(&quot;#foodImage&quot;).on(&quot;click&quot;, function() {
+						var params = {
+							ProductFamily: [&quot;Food&quot;]
+						};
+						
+						drinkFoodReport.params(params).run()
+							.fail(function(err) {
+								alert(err.message);
+							});
+						
+					});
+					</pre>
 				</p>
 				<br>
 				<h4>Task 3 - Add the Action for Drinks</h4>	
@@ -392,130 +485,36 @@ $(&quot;#foodImage&quot;).on(&quot;click&quot;, function() {
 				<p>
 				Each Report usually comes with multiple InputControls: for each parameter Jaspersoft should be aware of what kind of selection should be offered to end user.<br>
 				In this task we'll get the details of Input control for this report and We'll display them as a combo box.
-				
-<pre class="brush: js;">
-var inputControls = v.inputControls({
-	resource: &quot;/public/Samples/Reports/06g.ProfitDetailReport&quot;,
-	success: function(data){
-		var productFamilyInputControl = _.findWhere(data, {
-			id: &quot;ProductFamily&quot;});
-			
-		_.each(productFamilyInputControl.state.options, function (option) {
-			$(&quot;#productFamilySelector&quot;).append(&quot;&lt;option &quot; + 	
-				(option.selected ? &quot;selected&quot; : &quot;&quot;) + 
-				&quot; value='&quot; + option.value + &quot;'&gt;&quot; + 
-				option.label + 
-				&quot;&lt;/option&gt;&quot;);
-		});
-	}
-});
+				<pre class="brush: js;">
+				var inputControls = v.inputControls({
+					resource: &quot;/public/Samples/Reports/06g.ProfitDetailReport&quot;,
+					success: function(data){
+						var productFamilyInputControl = _.findWhere(data, {
+							id: &quot;ProductFamily&quot;});
+							
+						_.each(productFamilyInputControl.state.options, function (option) {
+							$(&quot;#productFamilySelector&quot;).append(&quot;&lt;option &quot; + 	
+								(option.selected ? &quot;selected&quot; : &quot;&quot;) + 
+								&quot; value='&quot; + option.value + &quot;'&gt;&quot; + 
+								option.label + 
+								&quot;&lt;/option&gt;&quot;);
+						});
+					}
+				});
 
-$(&quot;#productFamilySelector&quot;).on(&quot;change&quot;, function () {
-	drinkFoodReport.params({
-		&quot;ProductFamily&quot;: [$(this).val()]
-	}).run();
-});
-</pre>
-				</p>
-				</div>
-			</div>
-		</div><!-- /container -->
-	</div><!-- /LAB 3 -->
-	
-	<!-- ========== LAB 4 ========== -->
-	<section id="lab4" name="lab4"></section>
-	<div class="lab">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 col-lg-offset-2">
-				<h3><bold>LAB 4</bold> <br><br></h3>
-				<p>In this lab we'll add a Dashboard, and then create combobox to let user select from available Dashboards.<br>
-				The dashboards list is extracted directly from JasperReports Server</p>
-				
-				<br>
-				<select id="dashboardSelector"></select>
-				<br>
-				Container Div Id: &nbsp;&nbsp;&nbsp;<i>dashboardSelector</i>
-				<br>
-				<br>
-				<div id="div_dashboard_1" align="center" class="dashboardContainerViz" >
-					<object type="image/svg+xml" data="assets/img/drawsvg.svg" width="100%" height="100%">
-						<param name="Title" value="DASHBOARD 1" />
-						<param name="DivId" value="Div Id: div_dashboard_1" />
-					 </object>	
-				</div>
-				<br><br>
-				<h4>Task 1 - Add the Dashboard</h4>	
-				<p>
-				Let's see how to embed a dashboard. It's really not much different from a Report...<br>
-				Check out the code below:
-				
-<pre class="brush: js;">
-v(&quot;#div_dashboard_1&quot;).dashboard({
-	resource: &quot;/public/Samples/Dashboards/4._New_Dashboard&quot;,
-	error: function (err) {
-		alert(err.message);
-	}
-});
-</pre>
-				</p>
-				<br>
-				<h4>Task 2 - Get available Dashboards from JRS</h4>	
-				<p>
-				The code below request to JRS the list of resources of type Dashboard in a specific folder.<br>
-				Please note that onSuccess we call a function that is not yet defined, you'll find it in the next Task.<br>
-				So before reloading the page <b>complete also next task</b>
-				
-<pre class="brush: js;">
-v.resourcesSearch({
-	folderUri:&quot;/public/Samples/Dashboards&quot;,
-	recursive:false,
-	types:[&quot;dashboard&quot;],
-	success: listRepository,
-	error: function (err) {
-		alert(err.message);
-	}
-});
-</pre>
-				</p>
-				<br>
-			
-				<h4>Task 3 - Fill the ComboBox and add Load Dashboard on change</h4>	
-				<p>
-				In this Last Task we create a function to analyze the json result retrieved from previous task.<br>
-				With the result we'll populate the combobox already in this page.
-<pre class="brush: js;">
-// Repo Lister
-function listRepository(results) {
-	var dSelector = $(&quot;#dashboardSelector&quot;);
-	dSelector.empty(); // remove old options
-	$.each(results, function() {
-		dSelector.append($(&quot;&lt;option&gt;&lt;/option&gt;&quot;)
-		 .attr(&quot;value&quot;, this.uri).text(this.label));
-	});
-
-	//console.log($(&quot;#select&quot;));
-	dSelector.change(function() {
-		v.dashboard({
-				resource: this.value,
-				container: &quot;#div_dashboard_1&quot;,
-				error: function (err) {
-					alert(err.message);
-				}
-		});
-	});
-	// To select the option to display as default via index
-	$(&quot;#dashboardSelector option:eq(5)&quot;).prop(&quot;selected&quot;, true).change(); 
-}
-</pre>
+				$(&quot;#productFamilySelector&quot;).on(&quot;change&quot;, function () {
+					drinkFoodReport.params({
+						&quot;ProductFamily&quot;: [$(this).val()]
+					}).run();
+				});
+				</pre>
 				</p>
 				</div>
 			</div>
 		</div><!-- /container -->
 	</div><!-- /LAB 4 -->
 	
-	
-		<!-- ========== BOSUN LABS ========== -->
+	<!-- ========== BOSUN LABS ========== -->
 	<section id="labBonus" name="labBonus"></section>
 	<div class="lab alt">
 		<div class="container">
