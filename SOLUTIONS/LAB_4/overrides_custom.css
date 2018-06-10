@@ -1,0 +1,33 @@
+/*
+ * Author: Gianluca Natali
+ * 
+ * Version: 1.0
+ */
+
+ .command_help{
+	display:none; 
+ }
+
+ .jr-jAdhocVisualizationTitleText, .jr-mDatatable-cell-wrapper{
+	font-family: "lato" !important;
+}
+
+.jr-jAdhocVisualizationTitleText{
+	font-size: 18px !important;
+}
+
+.jr-mDatatable-cell-wrapper{
+	font-size: 13px !important;
+}
+
+.jr-mDatatable-header.jr .jr-mDatatable-row.jr, .jr-mDatatable-rowGroup, .jr-mVisualchooser-panel{
+ 	background-color: #e9c886 !important;
+ }
+
+.jr-mDialog-header, .jr-mDatatable-rowEven{
+ 	background-color: #fff3dc !important;
+ }
+
+ .jr-mTab-item-label{
+ 	color: #0053a2 !important;
+ }
