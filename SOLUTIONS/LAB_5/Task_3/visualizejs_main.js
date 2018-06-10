@@ -110,6 +110,14 @@ visualize({
 	});
 	
 	/*-- LAB_4_1 --*/
+    v("#div_view_1").adhocView({
+	    resource: "/public/Samples/Ad_Hoc_Views/04__Product_Results_by_Store_Type",
+	    error: function (err) {
+	        alert(err.message);
+    	}
+	});
+
+	/*-- LAB_5_1 --*/
 	v("#div_dashboard_1").dashboard({
 		resource: "/public/Samples/Dashboards/4._New_Dashboard",
 		error: function (err) {
@@ -117,7 +125,7 @@ visualize({
 		}
 	});
 	
-	/*-- LAB_4_2 --*/
+	/*-- LAB_5_2 --*/
 	v.resourcesSearch({
 		folderUri:"/public/Samples/Dashboards",
 		recursive:false,
@@ -128,7 +136,7 @@ visualize({
 		}
 	});
 	
-	/*-- LAB_4_3 --*/
+	/*-- LAB_5_3 --*/
 	// Repo Lister
 	function listRepository(results) {
 		var dSelector = $("#dashboardSelector");

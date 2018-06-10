@@ -124,40 +124,5 @@ visualize({
 			alert(err.message);
 		}
 	});
-	
-	/*-- LAB_5_2 --*/
-	v.resourcesSearch({
-		folderUri:"/public/Samples/Dashboards",
-		recursive:false,
-		types:["dashboard"],
-		success: listRepository,
-		error: function (err) {
-			alert(err.message);
-		}
-	});
-	
-	/*-- LAB_5_3 --*/
-	// Repo Lister
-	function listRepository(results) {
-		var dSelector = $("#dashboardSelector");
-		dSelector.empty(); // remove old options
-		$.each(results, function() {
-			dSelector.append($("<option></option>")
-			 .attr("value", this.uri).text(this.label));
-		});
-	 
-		//console.log($("#select"));
-		dSelector.change(function() {
-			v.dashboard({
-					resource: this.value,
-					container: "#div_dashboard_1",
-					error: function (err) {
-						alert(err.message);
-					}
-			});
-		});
-		// To select the option to display as default via index
-		$("#dashboardSelector option:eq(5)").prop("selected", true).change();
-	}
  
 });

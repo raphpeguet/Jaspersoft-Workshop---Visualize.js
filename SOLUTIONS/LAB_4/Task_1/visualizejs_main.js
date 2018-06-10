@@ -59,62 +59,13 @@ visualize({
 			alert(err.message);
 		}
 	});
-	
-	/*-- LAB_3_2 --*/
-	$("#foodImage").on("click", function() {
-		var params = {
-			ProductFamily: ["Food"]
-		};
-		 
-		drinkFoodReport.params(params).run()
-			.fail(function(err) {
-				alert(err.message);
-			});
-		 
-	});
-	
-	/*-- LAB_3_3 --*/
-	$("#drinkImage").on("click", function() {
-		var params = {
-			ProductFamily: ["Drink"]
-		};
-		 
-		drinkFoodReport.params(params).run()
-			.fail(function(err) {
-				alert(err.message);
-			});
-		 
-	});
-	
-	/*-- LAB_3_4 --*/
-	var inputControls = v.inputControls({
-		resource: "/public/Samples/Reports/06g.ProfitDetailReport",
-		success: function(data){
-			var productFamilyInputControl = _.findWhere(data, {
-				id: "ProductFamily"});
-				 
-			_.each(productFamilyInputControl.state.options, function (option) {
-				$("#productFamilySelector").append("<option " + 
-					(option.selected ? "selected" : "") +
-					" value='" + option.value + "'>" +
-					option.label +
-					"</option>");
-			});
-		}
-	});
-	 
-	$("#productFamilySelector").on("change", function () {
-		drinkFoodReport.params({
-			"ProductFamily": [$(this).val()]
-		}).run();
-	});
-	
+
 	/*-- LAB_4_1 --*/
-	v("#div_dashboard_1").dashboard({
-		resource: "/public/Samples/Dashboards/4._New_Dashboard",
-		error: function (err) {
-			alert(err.message);
-		}
+	v("#div_view_1").adhocView({
+	    resource: "/public/Samples/Ad_Hoc_Views/04__Product_Results_by_Store_Type",
+	    error: function (err) {
+	        alert(err.message);
+    	}
 	});
  
 });
