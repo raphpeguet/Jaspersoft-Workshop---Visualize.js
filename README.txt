@@ -21,6 +21,7 @@ IMPORTANT NOTICE
 This workshop is composed of several labs. Should you get stuck at some point you may find the solution for each LAB/Task in the SOLUTIONS folder that can be found in the project you downloaded
 
 Improvements:
+> Edit steps in LAB 5 to add params as tested in the vizjs_main.js file in COMPLETE
 > Add missing JS file under START / workshop_visualizejs
 > explain better in each steps:
    > clear cache after changing scrolltotop = false for Dashboards.
@@ -29,5 +30,4 @@ Improvements:
      > install JRS
      > User Guide
      > Viz API Samples
-Long terme
-> Centralise index.html which is in 3 places
+Long term
