@@ -108,56 +108,60 @@ visualize({
 			"ProductFamily": [$(this).val()]
 		}).run();
 	});
-	
+
 	/*-- LAB_4_1 --*/
-    v("#div_view_1").adhocView({
+	v("#div_view_1").adhocView({
 	    resource: "/public/Samples/Ad_Hoc_Views/04__Product_Results_by_Store_Type",
 	    error: function (err) {
 	        alert(err.message);
     	}
 	});
 
-	/*-- LAB_5_1 --*/
-	v("#div_dashboard_1").dashboard({
-		resource: "/public/Samples/Dashboards/4._New_Dashboard",
-		error: function (err) {
-			alert(err.message);
-		}
+ 	v("#div_dashboard_1").dashboard({
+	    resource: "/public/Samples/Dashboards/4._New_Dashboard",
+	    params: {
+	        product_category_1: ["Candy"],
+	        c_state_province_1: ["BC"]
+	    },
+	    error: function (err) {
+	        alert(err.message);
+	    }
 	});
-	
-	/*-- LAB_5_2 --*/
+
 	v.resourcesSearch({
-		folderUri:"/public/Samples/Dashboards",
-		recursive:false,
-		types:["dashboard"],
-		success: listRepository,
-		error: function (err) {
-			alert(err.message);
-		}
+	    folderUri:"/public/Samples/Dashboards",
+	    recursive:false,
+	    types:["dashboard"],
+	    success: listRepository,
+	    error: function (err) {
+	        alert(err.message);
+	    }
 	});
-	
-	/*-- LAB_5_3 --*/
+
 	// Repo Lister
 	function listRepository(results) {
-		var dSelector = $("#dashboardSelector");
-		dSelector.empty(); // remove old options
-		$.each(results, function() {
-			dSelector.append($("<option></option>")
-			 .attr("value", this.uri).text(this.label));
-		});
+	    var dSelector = $("#dashboardSelector");
+	    dSelector.empty(); // remove old options
+	    $.each(results, function() {
+	        dSelector.append($("<option></option>")
+	         .attr("value", this.uri).text(this.label));
+	    });
 	 
-		//console.log($("#select"));
-		dSelector.change(function() {
-			v.dashboard({
-					resource: this.value,
-					container: "#div_dashboard_1",
-					error: function (err) {
-						alert(err.message);
-					}
-			});
-		});
-		// To select the option to display as default via index
-		$("#dashboardSelector option:eq(5)").prop("selected", true).change();
+	    // console.log($("#select"));
+	    dSelector.change(function() {
+	        v.dashboard({
+	                resource: this.value,
+	                container: "#div_dashboard_1",
+				    params: {
+				        product_category_1: ["Candy"],
+				        c_state_province_1: ["BC"]
+				    },
+	                error: function (err) {
+	                    alert(err.message);
+	                }
+	        });
+	    });
+	    // To select the option to display as default via index
+	    $("#dashboardSelector option:eq(5)").prop("selected", true).change();
 	}
- 
 });

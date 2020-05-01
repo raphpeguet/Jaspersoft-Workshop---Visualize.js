@@ -120,6 +120,10 @@ visualize({
 	/*-- LAB_5_1 --*/
 	v("#div_dashboard_1").dashboard({
 		resource: "/public/Samples/Dashboards/4._New_Dashboard",
+	    params: {
+	        product_category_1: ["Candy"],
+	        c_state_province_1: ["BC"]
+	    },
 		error: function (err) {
 			alert(err.message);
 		}
