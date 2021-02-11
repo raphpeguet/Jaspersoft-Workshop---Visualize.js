@@ -20,6 +20,9 @@ http://localhost:8080/visualizejs_workshop/
 IMPORTANT NOTICE
 This workshop is composed of several labs. Should you get stuck at some point you may find the solution for each LAB/Task in the SOLUTIONS folder that can be found in the project you downloaded
 
+To be fixed for JRS v. 7.9
+> Lab 2, task 1 and 2, the report is now named 02. Sales Mix by City Report.
+
 Improvements:
 > Edit steps in LAB 5 to add params as tested in the vizjs_main.js file in COMPLETE
 > Add missing JS file under START / workshop_visualizejs
