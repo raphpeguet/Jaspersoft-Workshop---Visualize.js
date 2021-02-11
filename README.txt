@@ -8,7 +8,7 @@ It is assumed that you have a recent version of JasperReports Server running on 
 TO START THE WORKSHOP
 > Download this project and unzip it
 > Open the START folder and copy the folder it contains which is called "visualizejs_workshop"
-> Paste the folder in your tomcat/webapps folder or your Jasperreports Server installation
+> Paste the folder in your tomcat/webapps folder of your Jasperreports Server installation
 
 OPEN THE WORKSHOP PAGE
 > Make sure JasperReports Server is running
